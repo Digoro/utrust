@@ -19,7 +19,6 @@ export class ApplicantRepository implements ApplicantUsecase {
         return (applicant.Item as Applicant);
     }
 
-    // TODO: 리스크 조회 수정
     async getApplicants() {
         var params = {
             TableName: "applicant"
@@ -29,19 +28,18 @@ export class ApplicantRepository implements ApplicantUsecase {
         return (applicants.Items as Applicant[]);
     }
 
-    // TODO: 수정
     async setSponser(name: string, sponser: string) {
         const applicant = await this.dbClient.get(new Applicant(name).keyQuery).promise();
         if (!applicant) throw new Error(`not linked name : ${name}`);
         else {
-            const a = applicant.Item as Applicant;
-            a.setSponser(sponser);
+            let a = applicant.Item as Applicant;
+            a = a.setSponser(sponser);
             var params = {
                 TableName: 'applicant',
                 Key: {
                     name: name
                 },
-                UpdateExpression: "set applicant.sponser = :s",
+                UpdateExpression: "set applicant.sponsers = :s",
                 ExpressionAttributeValues: {
                     ":s": a.sponsers
                 },
@@ -56,12 +54,12 @@ export class ApplicantRepository implements ApplicantUsecase {
         const app = await this.dbClient.get(new Applicant(applicant).keyQuery).promise();
         if (!app) throw new Error(`not linked name : ${applicant}`);
         else {
-            const a = app.Item as Applicant;
-            a.setStatus(sponser, status);
+            let a = app.Item as Applicant;
+            a = a.setStatus(sponser, status);
             var params = {
                 TableName: 'applicant',
                 Key: {
-                    name: 'name'
+                    name: applicant
                 },
                 UpdateExpression: "set applicant.statuses = :s",
                 ExpressionAttributeValues: {
@@ -74,15 +72,14 @@ export class ApplicantRepository implements ApplicantUsecase {
     }
 
     async updateMyinfo(applicant: Applicant) {
-        applicant.update(applicant);
         var params = {
             TableName: 'applicant',
             Key: {
-                name: 'name'
+                name: applicant
             },
-            UpdateExpression: "set applicant = :s",
+            UpdateExpression: "set applicant = :a",
             ExpressionAttributeValues: {
-                ":s": applicant
+                ":a": applicant
             },
             ReturnValues: "UPDATED_NEW"
         };

@@ -82,32 +82,32 @@ functions:
           method: post
           path: setApplicant
           cors: true
-  getAddress:
-    handler: handlers.getLinkAddress
-    events:
-      - http:
-          method: get
-          path: address
-          cors: true
-  createAddress:
-    handler: handlers.createAddress
-    events:
-      - http:
-          method: post
-          path: address
-          cors: true
-  linkAddress:
-    handler: handlers.linkAddress
-    events:
-      - http:
-          method: put
-          path: address
-          cors: true
-  getCertText:
-    handler: handlers.getCertText
-    events:
-      - http:
-          method: get
-          path: cert
-          cors: true
+  # getAddress:
+  #   handler: handlers.getLinkAddress
+  #   events:
+  #     - http:
+  #         method: get
+  #         path: address
+  #         cors: true
+  # createAddress:
+  #   handler: handlers.createAddress
+  #   events:
+  #     - http:
+  #         method: post
+  #         path: address
+  #         cors: true
+  # linkAddress:
+  #   handler: handlers.linkAddress
+  #   events:
+  #     - http:
+  #         method: put
+  #         path: address
+  #         cors: true
+  # getCertText:
+  #   handler: handlers.getCertText
+  #   events:
+  #     - http:
+  #         method: get
+  #         path: cert
+  #         cors: true
  

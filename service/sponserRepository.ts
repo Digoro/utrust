@@ -25,14 +25,14 @@ export class SponserRepository implements SponserUsecase {
         const sponser = await this.dbClient.get(new Sponser(name).keyQuery).promise();
         if (!sponser) throw new Error(`not linked name : ${name}`);
         else {
-            const s = sponser.Item as Sponser;
-            s.setApplicant(applicant);
+            let s = sponser.Item as Sponser;
+            s = s.setApplicant(applicant);
             var params = {
                 TableName: 'sponser',
                 Key: {
                     name: name
                 },
-                UpdateExpression: "set sponser.applicant = :a",
+                UpdateExpression: "set sponser.applicants = :a",
                 ExpressionAttributeValues: {
                     ":a": s.applicants
                 },
