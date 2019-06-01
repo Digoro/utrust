@@ -6,4 +6,5 @@ export interface ApplicantUsecase {
     getApplicants: () => Promise<Applicant[]>
     setSponser: (name: string, sponser: string) => Promise<Applicant>
     setStatus: (applicant: string, sponser: string, status: string) => Promise<void>
+    updateMyinfo: (applicant: Applicant) => Promise<void>
 }

@@ -47,6 +47,20 @@ functions:
           method: post
           path: setSponser
           cors: true
+  setApplicantStatus:
+    handler: handlers.setApplicantStatus
+    events:
+      - http:
+          method: put
+          path: setApplicantStatus
+          cors: true
+  updateMyinfo:
+    handler: handlers.updateMyinfo
+    events:
+      - http:
+          method: put
+          path: updateMyinfo
+          cors: true
   getSponser:
     handler: handlers.getSponser
     events:
@@ -60,13 +74,6 @@ functions:
       - http:
           method: get
           path: sponsers
-          cors: true
-  setApplicantStatus:
-    handler: handlers.setApplicantStatus
-    events:
-      - http:
-          method: put
-          path: sponsers/applicantStatus
           cors: true
   getSponsers:
     handler: handlers.setApplicant

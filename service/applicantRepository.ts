@@ -72,4 +72,20 @@ export class ApplicantRepository implements ApplicantUsecase {
             await this.dbClient.update(params).promise();
         }
     }
+
+    async updateMyinfo(applicant: Applicant) {
+        applicant.update(applicant);
+        var params = {
+            TableName: 'applicant',
+            Key: {
+                name: 'name'
+            },
+            UpdateExpression: "set applicant = :s",
+            ExpressionAttributeValues: {
+                ":s": applicant
+            },
+            ReturnValues: "UPDATED_NEW"
+        };
+        await this.dbClient.update(params).promise();
+    }
 }

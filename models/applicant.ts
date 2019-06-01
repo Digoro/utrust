@@ -45,6 +45,10 @@ export class Applicant extends TableModel {
     return this;
   }
 
+  update(applicant: Applicant) {
+    console.log(applicant);
+  }
+
   get map(): { [key: string]: any; } {
     return {
       name: this.name,
