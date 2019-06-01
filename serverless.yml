@@ -12,6 +12,34 @@ provider:
   region: ap-northeast-2
 
 functions:
+  getApplicant:
+    handler: handlers.getApplicant
+    events:
+      - http:
+          method: get
+          path: applicant
+          cors: true
+  getApplicants:
+    handler: handlers.getApplicants
+    events:
+      - http:
+          method: get
+          path: applicants
+          cors: true
+  getSponser:
+    handler: handlers.getSponser
+    events:
+      - http:
+          method: get
+          path: sponser
+          cors: true
+  getSponsers:
+    handler: handlers.getSponsers
+    events:
+      - http:
+          method: get
+          path: sponsers
+          cors: true
   getAddress:
     handler: handlers.getLinkAddress
     events:
