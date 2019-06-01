@@ -6,18 +6,34 @@ import { response, createDBClient } from '../models';
 
 const applicantRepo = new ApplicantRepository(createDBClient());
 
-export const getApplicant: APIGatewayProxyHandler = middleware(
+export const signUp: APIGatewayProxyHandler = middleware(
   async (param) => {
-    const id = param.queryParams.id;
+    const name = param.body.name;
+    const mail = param.body.mail;
+    const password = param.body.password;
     try {
-      const applicant = await applicantRepo.getApplicant(id);
+      const applicant = await applicantRepo.signUp(mail, name, password);
       return response(200, { applicant: applicant });
     } catch (e) {
       console.error(e);
       return response(404, e.message);
     }
   },
-  { queryParams: ['id'] }
+  { body: ['name', 'mail', 'password'] }
+)
+
+export const getApplicant: APIGatewayProxyHandler = middleware(
+  async (param) => {
+    const name = param.queryParams.name;
+    try {
+      const applicant = await applicantRepo.getApplicant(name);
+      return response(200, { applicant: applicant });
+    } catch (e) {
+      console.error(e);
+      return response(404, e.message);
+    }
+  },
+  { queryParams: ['name'] }
 )
 
 export const getApplicants: APIGatewayProxyHandler = middleware(
@@ -31,4 +47,42 @@ export const getApplicants: APIGatewayProxyHandler = middleware(
     }
   },
   {}
+)
+
+export const setSponser: APIGatewayProxyHandler = middleware(
+  async (param) => {
+    const name = param.body.name;
+    const sponser = param.body.sponser;
+    try {
+      const applicant = await applicantRepo.setSponser(name, sponser);
+      return response(200, { applicant: applicant });
+    } catch (e) {
+      console.error(e);
+      return response(404, e.message);
+    }
+  },
+  { body: ['name', 'sponser'] }
+)
+
+export const setApplicantStatus: APIGatewayProxyHandler = middleware(
+  async (param) => {
+    const applicant = param.body.applicant;
+    const sponser = param.body.sponser;
+    const status = param.body.status;
+    try {
+      let applicants = await applicantRepo.getApplicants();
+      applicants = applicants.filter(a => {
+        if (a == applicant) {
+          a.setStatus(sponser, status)
+        }
+      });
+      // TODO 수정
+      await applicantRepo.setStatus(applicant, sponser, status);
+      return response(200);
+    } catch (e) {
+      console.error(e);
+      return response(404, e.message);
+    }
+  },
+  { body: ['applicant', 'sponser', 'status'] }
 )

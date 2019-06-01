@@ -2,8 +2,8 @@ import { TableModel } from "./tableModel";
 
 export class Sponser extends TableModel {
   constructor(
-    public id: string,
-    public name?: string,
+    public name: string,
+    public applicants?: string[],
     public phone?: string,
     public introduction?: string,
     public predictPrice?: string,
@@ -12,9 +12,13 @@ export class Sponser extends TableModel {
     super('sponser');
   }
 
+  setApplicant(applicant) {
+    this.applicants.push(applicant);
+    return this;
+  }
+
   get map(): { [key: string]: any; } {
     return {
-      id: this.id,
       name: this.name,
       phone: this.phone,
       introduction: this.introduction,
