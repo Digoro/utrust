@@ -25,12 +25,19 @@ export const middleware = <T extends Parameter>(handler: (param: T) => Promise<A
         if (missingQueryParams.length + missingPathParams.length + missingBodyParams.length > 0) {
             return missingParameters(missingQueryParams, missingPathParams, missingBodyParams);
         }
-        const origin = event.headers.origin;
+        // return await handler(param as T);
+
         const response = await handler(param as T);
-        response.headers['Access-Control-Allow-Origin'] = origin || "*";
+        response.headers = {};
+        response.headers['Access-Control-Allow-Origin'] = "*";
+        response.headers['Access-Control-Allow-Methods'] = "POST,GET,OPTIONS,DELETE,PUT";
+        response.headers['Access-Control-Allow-Headers'] = "x-requested-with";
+        console.log(JSON.stringify(response.headers));
+
         return response;
     }
 }
+
 
 const validateParams = (params: { [key: string]: any }, required: string[] = []) => {
     const paramKeys = Object.keys(params);

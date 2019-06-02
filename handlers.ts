@@ -1,4 +1,4 @@
-export { signUp, getApplicant, getApplicants, setSponser, setApplicantStatus } from './handler/applicant';
+export { signUp, signIn, getApplicant, getApplicants, setSponser, setApplicantStatus } from './handler/applicant';
 export { getSponser, getSponsers, setApplicant } from './handler/sponser';
 export { corsHandler } from './handler/corsHandler';
 

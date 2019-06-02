@@ -14,6 +14,7 @@ export class Applicant extends TableModel {
     public password?: string,
     public sponsers?: string[],
     public statuses: any = [],
+    public image?: string,
     public phone?: string,
     public selfIntroduction?: string,
     public eduLevel?: string[],

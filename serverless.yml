@@ -26,6 +26,13 @@ functions:
           method: post
           path: signUp
           cors: true
+  signIn:
+    handler: handlers.signIn
+    events:
+      - http:
+          method: post
+          path: signIn
+          cors: true
   getApplicant:
     handler: handlers.getApplicant
     events:
@@ -68,14 +75,14 @@ functions:
           method: get
           path: sponser
           cors: true
-  setApplicant:
+  getSponsers:
     handler: handlers.getSponsers
     events:
       - http:
           method: get
           path: sponsers
           cors: true
-  getSponsers:
+  setApplicant:
     handler: handlers.setApplicant
     events:
       - http:

@@ -3,6 +3,7 @@ import { TableModel } from "./tableModel";
 export class Sponser extends TableModel {
   constructor(
     public name: string,
+    public image?: string,
     public applicants?: string[],
     public phone?: string,
     public introduction?: string,

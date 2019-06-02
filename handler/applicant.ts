@@ -86,3 +86,18 @@ export const setApplicantStatus: APIGatewayProxyHandler = middleware(
   },
   { body: ['applicant', 'sponser', 'status'] }
 )
+
+export const signIn: APIGatewayProxyHandler = middleware(
+  async (param) => {
+    const mail = param.body.mail;
+    const password = param.body.password;
+    try {
+      const isAuth = await applicantRepo.signIn(mail, password);
+      return response(200, { isAuth: isAuth });
+    } catch (e) {
+      console.error(e);
+      return response(404, e.message);
+    }
+  },
+  { body: ['mail', 'password'] }
+)

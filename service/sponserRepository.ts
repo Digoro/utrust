@@ -26,7 +26,7 @@ export class SponserRepository implements SponserUsecase {
         if (!sponser) throw new Error(`not linked name : ${name}`);
         else {
             let s = sponser.Item as Sponser;
-            s = s.setApplicant(applicant);
+            s.applicants.push(applicant)
             var params = {
                 TableName: 'sponser',
                 Key: {
